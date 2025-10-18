@@ -11,8 +11,7 @@ RUN set -eux; \
     cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak; \
     curl -fsSL -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo; \
     yum clean all && yum makecache; \
-    yum -y update; \
-    yum -y install git gcc-c++ make openssl-devel python tar xz unzip; \
+    yum -y install git curl gcc-c++ make; \
     yum clean all && rm -rf /var/cache/yum
 
 # 2) 安装 nvm + Node 16（并将 node/npm/npx 链接到 PATH）
@@ -30,7 +29,7 @@ RUN set -eux; \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> /root/.bashrc
 
 # 3) 拉取项目（node 分支）
-RUN git clone --branch node --depth 1 https://github.com/bg6cq/speedtest.git /root/speedtest
+RUN git clone --branch node --depth 1 https://github.com/Dorothy863/speedtest.git /root/speedtest
 WORKDIR /root/speedtest
 
 # 4) 安装生产依赖（优先使用 package-lock）

@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  speedtest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-speedtest:centos7-node16
+    container_name: speedtest
+    restart: unless-stopped
+    environment:
+      - HOST=0.0.0.0
+      - PORT=1551
+    ports:
+      - "1551:1551"   # 左侧可改为你想映射的宿主机端口
+    volumes:
+      - myspeed_data:/myspeed/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$${PORT:-1551} || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  myspeed_data:
+    driver: local

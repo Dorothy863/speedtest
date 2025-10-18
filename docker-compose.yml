@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: my-speedtest:centos7-node16
     container_name: speedtest
-    restart: unless-stopped
+    restart: no
     environment:
       - HOST=0.0.0.0
       - PORT=1551

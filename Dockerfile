@@ -30,13 +30,12 @@ RUN git clone --branch node --depth 1 https://github.com/Dorothy863/speedtest.gi
 WORKDIR /root/speedtest
 
 # 4) 安装生产依赖（优先使用 package-lock）
-RUN set -eux; \
-    npm ci --only=production || npm install --production
+RUN npm ci --only=production || npm install --production
 
-# 5) 声明数据目录（可选，与笔记一致）
+# 5) 声明数据目录（预留的共享位置）
 RUN mkdir -p /myspeed/data
 VOLUME ["/myspeed/data"]
 
 # 6) 暴露端口并启动服务
 EXPOSE 1551
-CMD ["node", "src/Speedtest.js"]
+CMD ["node", "/root/speedtest/src/Speedtest.js"]

@@ -7,7 +7,7 @@ ENV NVM_DIR=/root/.nvm \
 
 # 1) 基础依赖 + 换源到阿里云 + 清理缓存
 RUN cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak && \
-    curl -fsSL -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo && \
+    curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo && \
     yum clean all && yum makecache && \
     yum -y install git curl gcc-c++ make && \
     yum clean all && rm -rf /var/cache/yum
